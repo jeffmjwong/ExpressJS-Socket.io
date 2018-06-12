@@ -1,15 +1,14 @@
+const socket = io("http://localhost:4321");
 
-var socket = io("http://localhost:3000");
-
-socket.on("disconnect", function() {
+socket.on("disconnect", () => {
 	setTitle("Disconnected");
 });
 
-socket.on("connect", function() {
+socket.on("connect", () => {
 	setTitle("Connected to Cyber Chat");
 });
 
-socket.on("message", function(message) {
+socket.on("message", message => {
 	printMessage(message);
 });
 

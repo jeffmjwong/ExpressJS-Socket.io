@@ -1,19 +1,19 @@
-var express = require("express");
-var http = require("http");
-var app = express();
-var server = http.createServer(app).listen(3000);
-var io = require("socket.io")(server);
+const express = require('express');
+const http = require('http');
 
-app.use(express.static("./public"));
+const app = express();
 
-io.on("connection", function(socket) {
+const server = http.createServer(app).listen(4321);
 
-    socket.on("chat", function(message) {
-    	socket.broadcast.emit("message", message);
-    });
+const io = require('socket.io')(server);
 
-	socket.emit("message", "Welcome to Cyber Chat");
+app.use(express.static('./public'));
 
+io.on('connection', socket => {
+  socket.on('chat', message => {
+    socket.broadcast.emit('message', message);
+  });
+  socket.emit('message', 'Welcome to Cyber Chat!');
 });
 
-console.log("Starting Socket App - http://localhost:3000");
+console.log('Starting Socket App - http://localhost:4321');
